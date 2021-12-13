@@ -52,7 +52,7 @@ const mostLikedAuthor = (blogs) => {
 		}
 	}
 
-	//find the author with the most posts
+	//find the author with the most likes
 	const mostLikedAuthor = Object.keys(authorsList).reduce((entry, highest) =>
 		authorsList[entry] > authorsList[highest] ? entry : highest
 	);
