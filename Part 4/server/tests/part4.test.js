@@ -1,3 +1,9 @@
+const mongoose = require('mongoose');
+const supertest = require('supertest');
+const app = require('../index');
+
+const request = supertest(app);
+
 const listHelper = require('../utils/list_helper');
 
 const mockBlogs = [
@@ -83,5 +89,18 @@ describe('Basic blog routers tests:', () => {
 			author: 'Edsger W. Dijkstra',
 			likes: 17,
 		});
+	});
+});
+
+describe('test server - part 4 section B', () => {
+	test('Blogs are returned as json', async () => {
+		const response = await request.get('/api/blogs');
+		console.log(response.headers);
+		expect(200);
+		expect(response.body.length).toBe(mockBlogs.length);
+	});
+
+	afterAll(() => {
+		mongoose.connection.close();
 	});
 });
