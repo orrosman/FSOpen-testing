@@ -1,24 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
-const { Blog } = require('../models/Blog');
-require('dotenv').config();
+const { getAllBlogs, postNewBlogs } = require('../utils/blogUtils');
 
-const mongoUrl = process.env.MONGO_URL;
-mongoose.connect(mongoUrl);
-
-router.get('/api/blogs', (request, response) => {
-	Blog.find({}).then((blogs) => {
-		response.json(blogs);
-	});
+router.get('/api/blogs', async (request, response) => {
+	response.json(await getAllBlogs());
 });
 
-router.post('/api/blogs', (request, response) => {
-	const blog = new Blog(request.body);
+router.post('/api/blogs', async (request, response) => {
+	const newBlog = request.body;
 
-	blog.save().then((result) => {
-		response.status(201).json(result);
-	});
+	response.status(201).json(await postNewBlogs(newBlog));
 });
 
 module.exports = router;
