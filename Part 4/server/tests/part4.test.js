@@ -95,9 +95,15 @@ describe('Basic blog routers tests:', () => {
 describe('test server - part 4 section B', () => {
 	test('Blogs are returned as json', async () => {
 		const response = await request.get('/api/blogs');
-		console.log(response.headers);
 		expect(200);
 		expect(response.body.length).toBe(mockBlogs.length);
+	});
+
+	test('Test ID exists', async () => {
+		const response = await request.get('/api/blogs');
+		response.body.map(({ _id }) => {
+			expect(_id).toBeDefined();
+		});
 	});
 
 	afterAll(() => {
