@@ -62,3 +62,8 @@ test('Sum all blog posts likes', () => {
 	const totalLikes = listHelper.totalLikes(mockBlogs);
 	expect(totalLikes).toBe(36);
 });
+
+test('Blog post with most likes', () => {
+	const mostLikedPost = listHelper.favoriteBlog(mockBlogs);
+	expect(mostLikedPost).toEqual(mockBlogs[2]);
+});
