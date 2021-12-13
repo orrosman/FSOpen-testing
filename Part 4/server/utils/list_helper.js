@@ -40,9 +40,33 @@ const mostBlogs = (blogs) => {
 	};
 };
 
+const mostLikedAuthor = (blogs) => {
+	const authorsList = {};
+
+	//map authors to {author name:number of likes}
+	for (const blog of blogs) {
+		if (blog.author in authorsList) {
+			authorsList[blog.author] += blog.likes;
+		} else {
+			authorsList[blog.author] = blog.likes;
+		}
+	}
+
+	//find the author with the most posts
+	const mostLikedAuthor = Object.keys(authorsList).reduce((entry, highest) =>
+		authorsList[entry] > authorsList[highest] ? entry : highest
+	);
+
+	return {
+		author: mostLikedAuthor,
+		likes: authorsList[mostLikedAuthor],
+	};
+};
+
 module.exports = {
 	dummy,
 	totalLikes,
 	favoriteBlog,
 	mostBlogs,
+	mostLikedAuthor,
 };
