@@ -51,27 +51,37 @@ const mockBlogs = [
 	},
 ];
 
-test('dummy returns one', () => {
-	const blogs = [];
+describe('Basic blog routers tests:', () => {
+	test('dummy returns one', () => {
+		const blogs = [];
 
-	const result = listHelper.dummy(blogs);
-	expect(result).toBe(1);
-});
+		const result = listHelper.dummy(blogs);
+		expect(result).toBe(1);
+	});
 
-test('Sum all blog posts likes', () => {
-	const totalLikes = listHelper.totalLikes(mockBlogs);
-	expect(totalLikes).toBe(36);
-});
+	test('Sum all blog posts likes', () => {
+		const totalLikes = listHelper.totalLikes(mockBlogs);
+		expect(totalLikes).toBe(36);
+	});
 
-test('Blog post with most likes', () => {
-	const mostLikedPost = listHelper.favoriteBlog(mockBlogs);
-	expect(mostLikedPost).toEqual(mockBlogs[2]);
-});
+	test('Blog post with most likes', () => {
+		const mostLikedPost = listHelper.favoriteBlog(mockBlogs);
+		expect(mostLikedPost).toEqual(mockBlogs[2]);
+	});
 
-test('Author with most blog posts', () => {
-	const highestQuantityAuthor = listHelper.mostBlogs(mockBlogs);
-	expect(highestQuantityAuthor).toEqual({
-		author: 'Robert C. Martin',
-		blogs: 3,
+	test('Author with most blog posts', () => {
+		const highestQuantityAuthor = listHelper.mostBlogs(mockBlogs);
+		expect(highestQuantityAuthor).toEqual({
+			author: 'Robert C. Martin',
+			blogs: 3,
+		});
+	});
+
+	test('Most liked author', () => {
+		const highestQuantityAuthor = listHelper.mostLikedAuthor(mockBlogs);
+		expect(highestQuantityAuthor).toEqual({
+			author: 'Edsger W. Dijkstra',
+			likes: 17,
+		});
 	});
 });
