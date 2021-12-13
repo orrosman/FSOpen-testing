@@ -112,6 +112,19 @@ describe('test server - part 4 section B', () => {
 		});
 	});
 
+	test('Create new blog', async () => {
+		const fakePostBlog = {
+			title: 'Testing Post',
+			author: 'Test Testington',
+			url: 'https://testtest.example/',
+			likes: 42,
+		};
+
+		const response = await request.post('/api/blogs').send({ ...fakePostBlog });
+		expect(200);
+		expect(response.body).toEqual(expect.objectContaining(fakePostBlog));
+	});
+
 	afterAll(() => {
 		mongoose.connection.close();
 	});
