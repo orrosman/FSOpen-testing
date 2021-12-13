@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const testBlog = require('../models/TestBlog');
 const supertest = require('supertest');
 const app = require('../index');
 
@@ -56,6 +57,11 @@ const mockBlogs = [
 		__v: 0,
 	},
 ];
+
+beforeEach(async () => {
+	await testBlog.deleteMany({});
+	await testBlog.insertMany(mockBlogs);
+});
 
 describe('Basic blog routers tests:', () => {
 	test('dummy returns one', () => {
