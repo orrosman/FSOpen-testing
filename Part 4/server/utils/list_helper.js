@@ -16,8 +16,33 @@ const favoriteBlog = (blogs) => {
 	return mostLikedPost;
 };
 
+const mostBlogs = (blogs) => {
+	const authorsList = {};
+
+	//map authors to {author name:number of posts}
+	for (const blog of blogs) {
+		if (blog.author in authorsList) {
+			authorsList[blog.author]++;
+		} else {
+			authorsList[blog.author] = 1;
+		}
+	}
+
+	//find the author with the most posts
+	const highestQuantityAuthor = Object.keys(authorsList).reduce(
+		(entry, highest) =>
+			authorsList[entry] > authorsList[highest] ? entry : highest
+	);
+
+	return {
+		author: highestQuantityAuthor,
+		blogs: authorsList[highestQuantityAuthor],
+	};
+};
+
 module.exports = {
 	dummy,
 	totalLikes,
 	favoriteBlog,
+	mostBlogs,
 };

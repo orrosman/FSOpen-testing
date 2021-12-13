@@ -67,3 +67,11 @@ test('Blog post with most likes', () => {
 	const mostLikedPost = listHelper.favoriteBlog(mockBlogs);
 	expect(mostLikedPost).toEqual(mockBlogs[2]);
 });
+
+test('Author with most blog posts', () => {
+	const highestQuantityAuthor = listHelper.mostBlogs(mockBlogs);
+	expect(highestQuantityAuthor).toEqual({
+		author: 'Robert C. Martin',
+		blogs: 3,
+	});
+});
