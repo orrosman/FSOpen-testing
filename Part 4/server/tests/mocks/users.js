@@ -4,7 +4,7 @@ const mockUsers = [
 ];
 
 const mockNewUser = {
-	username: 'Test',
+	username: 'Testimus',
 	name: 'Test Testy',
 	password: '123456',
 };
