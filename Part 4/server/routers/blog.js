@@ -7,11 +7,11 @@ const {
 	updateBlog,
 } = require('../utils/blogUtils');
 
-router.get('/api/blogs', async (request, response) => {
+router.get('/', async (request, response) => {
 	response.json(await getAllBlogs());
 });
 
-router.post('/api/blogs', async (request, response) => {
+router.post('/', async (request, response) => {
 	let newBlog = request.body;
 
 	if (!newBlog.hasOwnProperty('title') && !newBlog.hasOwnProperty('url')) {
@@ -24,13 +24,13 @@ router.post('/api/blogs', async (request, response) => {
 	}
 });
 
-router.delete('/api/blogs', async (request, response) => {
+router.delete('/', async (request, response) => {
 	const { id } = request.body;
 	const res = await deleteBlog(id);
 	response.json(res);
 });
 
-router.patch('/api/blogs', async (request, response) => {
+router.patch('/', async (request, response) => {
 	const { updates, id } = request.body;
 	const res = await updateBlog(id, updates);
 	response.json(res);
