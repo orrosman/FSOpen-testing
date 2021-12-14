@@ -76,6 +76,12 @@ const fakePostBlogNoTitle = {
 	likes: 42,
 };
 
+const fakeUpdatedBlog = {
+	title: 'React New patterns',
+	author: 'Michael Test Chan',
+	likes: 222,
+};
+
 beforeEach(async () => {
 	await Blog.deleteMany({});
 	await Blog.insertMany(mockBlogs);
@@ -154,6 +160,14 @@ describe('test server - part 4 section B', () => {
 		const response = await request
 			.delete('/api/blogs')
 			.send({ id: mockBlogs[0]._id });
+		expect(response.body).toEqual(mockBlogs[0]);
+	});
+
+	test('Can update a blog post', async () => {
+		const response = await request
+			.patch('/api/blogs')
+			.send({ id: mockBlogs[0]._id, updates: { ...fakeUpdatedBlog } });
+
 		expect(response.body).toEqual(mockBlogs[0]);
 	});
 
