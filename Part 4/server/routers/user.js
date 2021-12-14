@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { register, isUsernameExist } = require('../utils/userUtils');
+const {
+	register,
+	isUsernameExist,
+	getAllUsers,
+} = require('../utils/userUtils');
 
 router.post('/', async (request, response) => {
 	let newUser = request.body;
@@ -19,6 +23,10 @@ router.post('/', async (request, response) => {
 	} else {
 		response.status(201).json(await register(newUser));
 	}
+});
+
+router.get('/', async (request, response) => {
+	response.json(await getAllUsers());
 });
 
 module.exports = router;

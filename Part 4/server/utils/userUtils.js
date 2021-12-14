@@ -37,4 +37,10 @@ const isUsernameExist = async (newUsername) => {
 	return Boolean(await User.findOne({ username: newUsername }));
 };
 
-module.exports = { register, isUsernameExist };
+const getAllUsers = async () => {
+	console.log(await User.find({}));
+
+	return await User.find({});
+};
+
+module.exports = { register, isUsernameExist, getAllUsers };
