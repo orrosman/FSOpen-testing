@@ -7,7 +7,11 @@ router.get('/api/blogs', async (request, response) => {
 });
 
 router.post('/api/blogs', async (request, response) => {
-	const newBlog = request.body;
+	let newBlog = request.body;
+
+	if (!newBlog.hasOwnProperty('likes')) {
+		newBlog = { ...newBlog, likes: 0 };
+	}
 
 	response.status(201).json(await postNewBlogs(newBlog));
 });
