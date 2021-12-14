@@ -150,7 +150,7 @@ describe('test server - part 4 section B', () => {
 		const response = await request
 			.post('/api/blogs')
 			.send({ ...fakePostBlogNoTitle });
-		expect(400);
+		expect(response.statusCode).toBe(400);
 	});
 
 	afterAll(() => {
