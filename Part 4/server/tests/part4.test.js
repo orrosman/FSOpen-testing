@@ -113,16 +113,17 @@ describe('test server - part 4 section D', () => {
 		await User.insertMany(UserMocks.mockUsers);
 	});
 	test('Create a unique user', async () => {
-		//try to create a new unique user
 		const responseUnique = await request
 			.post('/api/users')
 			.send({ ...UserMocks.mockNewUser });
-		expect(responseUnique.status).toBe(201);
-		expect(responseUnique.body).toEqual(
-			expect.objectContaining(BlogMocks.mockNewUser)
-		);
 
-		//try to create a new NOT unique user
+		expect(responseUnique.status).toBe(201);
+		expect(responseUnique.body).toBe(
+			`User with username: ${UserMocks.mockNewUser.username} was created`
+		);
+	});
+
+	test("Can't create new user with existing username", async () => {
 		const responseNotUnique = await request
 			.post('/api/users')
 			.send({ ...UserMocks.mockNewUser });
