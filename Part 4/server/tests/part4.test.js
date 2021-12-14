@@ -136,10 +136,21 @@ describe('test server - part 4 section B', () => {
 			.post('/api/blogs')
 			.send({ ...fakePostBlogNoLike });
 		expect(200);
-		console.log({ ...fakePostBlogNoLike, likes: 0 });
 		expect(response.body).toEqual(
 			expect.objectContaining({ ...fakePostBlogNoLike, likes: 0 })
 		);
+	});
+
+	test('New blog post without a title & url properties would return 400', async () => {
+		const fakePostBlogNoTitle = {
+			author: 'Test Testington',
+			likes: 42,
+		};
+
+		const response = await request
+			.post('/api/blogs')
+			.send({ ...fakePostBlogNoTitle });
+		expect(400);
 	});
 
 	afterAll(() => {
