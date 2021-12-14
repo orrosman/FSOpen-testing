@@ -9,11 +9,14 @@ router.get('/api/blogs', async (request, response) => {
 router.post('/api/blogs', async (request, response) => {
 	let newBlog = request.body;
 
-	if (!newBlog.hasOwnProperty('likes')) {
+	if (!newBlog.hasOwnProperty('title') && !newBlog.hasOwnProperty('url')) {
+		response.status(400).send();
+	} else if (!newBlog.hasOwnProperty('likes')) {
 		newBlog = { ...newBlog, likes: 0 };
+		response.status(201).json(await postNewBlogs(newBlog));
+	} else {
+		response.status(201).json(await postNewBlogs(newBlog));
 	}
-
-	response.status(201).json(await postNewBlogs(newBlog));
 });
 
 module.exports = router;
