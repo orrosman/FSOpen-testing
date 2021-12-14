@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Blog = require('../models/Blog');
+const User = require('../models/User');
 const BlogMocks = require('./mocks/blogs');
+const UserMocks = require('./mocks/users');
 const supertest = require('supertest');
 const app = require('../index');
 
@@ -103,9 +105,33 @@ describe('test server - part 4 section B', () => {
 
 		expect(response.body).toEqual(BlogMocks.mockBlogs[0]);
 	});
+});
 
-	afterAll(() => {
-		mongoose.connection.close();
-		app.close();
+describe('test server - part 4 section D', () => {
+	beforeEach(async () => {
+		await User.deleteMany({});
+		await User.insertMany(UserMocks.mockUsers);
 	});
+	test('Create a unique user', async () => {
+		//try to create a new unique user
+		const responseUnique = await request
+			.post('/api/users')
+			.send({ ...UserMocks.mockNewUser });
+		expect(responseUnique.status).toBe(201);
+		expect(responseUnique.body).toEqual(
+			expect.objectContaining(BlogMocks.mockNewUser)
+		);
+
+		//try to create a new NOT unique user
+		const responseNotUnique = await request
+			.post('/api/users')
+			.send({ ...UserMocks.mockNewUser });
+		expect(responseNotUnique.status).toBe(406);
+		expect(responseNotUnique.body).toBe('Username already exist');
+	});
+});
+
+afterAll(() => {
+	mongoose.connection.close();
+	app.close();
 });
