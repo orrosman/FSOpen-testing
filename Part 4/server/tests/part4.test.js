@@ -151,14 +151,10 @@ describe('test server - part 4 section B', () => {
 	});
 
 	test('Can delete a post', async () => {
-		const dbPostCopy = await (
-			await request.post('/api/blogs').send({ ...fakePostBlog })
-		).body;
-		const fakePostId = dbPostCopy._id;
 		const response = await request
 			.delete('/api/blogs')
-			.send({ id: fakePostId });
-		expect(response.body).toEqual(dbPostCopy);
+			.send({ id: mockBlogs[0]._id });
+		expect(response.body).toEqual(mockBlogs[0]);
 	});
 
 	afterAll(() => {
