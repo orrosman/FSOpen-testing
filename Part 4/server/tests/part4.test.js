@@ -101,7 +101,6 @@ describe('Basic blog routers tests:', () => {
 describe('test server - part 4 section B', () => {
 	test('Blogs are returned as json', async () => {
 		const response = await request.get('/api/blogs');
-		expect(200);
 		expect(response.body.length).toBe(mockBlogs.length);
 	});
 
@@ -121,7 +120,6 @@ describe('test server - part 4 section B', () => {
 		};
 
 		const response = await request.post('/api/blogs').send({ ...fakePostBlog });
-		expect(200);
 		expect(response.body).toEqual(expect.objectContaining(fakePostBlog));
 	});
 
@@ -135,7 +133,6 @@ describe('test server - part 4 section B', () => {
 		const response = await request
 			.post('/api/blogs')
 			.send({ ...fakePostBlogNoLike });
-		expect(200);
 		expect(response.body).toEqual(
 			expect.objectContaining({ ...fakePostBlogNoLike, likes: 0 })
 		);
