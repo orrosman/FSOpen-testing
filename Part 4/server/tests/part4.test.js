@@ -112,6 +112,12 @@ describe('test server - part 4 section D', () => {
 		await User.deleteMany({});
 		await User.insertMany(UserMocks.mockUsers);
 	});
+	test('Get a list of all users', async () => {
+		const response = await request.get('/api/users');
+
+		expect(response.body.length).toBe(2);
+	});
+
 	test('Create a unique user', async () => {
 		const responseUnique = await request
 			.post('/api/users')
