@@ -15,6 +15,10 @@ const register = async (user) => {
 			name: user.name,
 			passwordHash: hashedPassword,
 		});
+		const isNewUser = await newUser.save();
+		if (isNewUser) {
+			return `User with username: ${isNewUser.username} was created`;
+		}
 		return await newUser.save();
 	} else {
 		return { error: 'Register was unsuccessful' };
