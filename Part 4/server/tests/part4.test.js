@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const testBlog = require('../models/TestBlog');
+const Blog = require('../models/Blog');
 const supertest = require('supertest');
 const app = require('../index');
 
@@ -77,8 +77,8 @@ const fakePostBlogNoTitle = {
 };
 
 beforeEach(async () => {
-	await testBlog.deleteMany({});
-	await testBlog.insertMany(mockBlogs);
+	await Blog.deleteMany({});
+	await Blog.insertMany(mockBlogs);
 });
 
 describe('Basic blog routers tests:', () => {
