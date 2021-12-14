@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { getAllBlogs, postNewBlogs, deleteBlog } = require('../utils/blogUtils');
+const {
+	getAllBlogs,
+	postNewBlogs,
+	deleteBlog,
+	updateBlog,
+} = require('../utils/blogUtils');
 
 router.get('/api/blogs', async (request, response) => {
 	response.json(await getAllBlogs());
@@ -22,6 +27,12 @@ router.post('/api/blogs', async (request, response) => {
 router.delete('/api/blogs', async (request, response) => {
 	const { id } = request.body;
 	const res = await deleteBlog(id);
+	response.json(res);
+});
+
+router.patch('/api/blogs', async (request, response) => {
+	const { updates, id } = request.body;
+	const res = await updateBlog(id, updates);
 	response.json(res);
 });
 
