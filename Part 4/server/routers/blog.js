@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAllBlogs, postNewBlogs } = require('../utils/blogUtils');
+const { getAllBlogs, postNewBlogs, deleteBlog } = require('../utils/blogUtils');
 
 router.get('/api/blogs', async (request, response) => {
 	response.json(await getAllBlogs());
@@ -17,6 +17,12 @@ router.post('/api/blogs', async (request, response) => {
 	} else {
 		response.status(201).json(await postNewBlogs(newBlog));
 	}
+});
+
+router.delete('/api/blogs', async (request, response) => {
+	const { id } = request.body;
+	const res = await deleteBlog(id);
+	response.json(res);
 });
 
 module.exports = router;

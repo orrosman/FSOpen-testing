@@ -13,4 +13,8 @@ const postNewBlogs = async (newBlog) => {
 	const blog = new Blog(newBlog);
 	return await blog.save();
 };
-module.exports = { getAllBlogs, postNewBlogs };
+
+const deleteBlog = async (id) => {
+	return await Blog.findOneAndDelete({ _id: id });
+};
+module.exports = { getAllBlogs, postNewBlogs, deleteBlog };
