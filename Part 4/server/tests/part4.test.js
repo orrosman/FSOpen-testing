@@ -150,6 +150,17 @@ describe('test server - part 4 section B', () => {
 		expect(response.statusCode).toBe(400);
 	});
 
+	test('Can delete a post', async () => {
+		const dbPostCopy = await (
+			await request.post('/api/blogs').send({ ...fakePostBlog })
+		).body;
+		const fakePostId = dbPostCopy._id;
+		const response = await request
+			.delete('/api/blogs')
+			.send({ id: fakePostId });
+		expect(response.body).toEqual(dbPostCopy);
+	});
+
 	afterAll(() => {
 		mongoose.connection.close();
 		app.close();
