@@ -58,6 +58,24 @@ const mockBlogs = [
 	},
 ];
 
+const fakePostBlog = {
+	title: 'Testing Post',
+	author: 'Test Testington',
+	url: 'https://testtest.example/',
+	likes: 42,
+};
+
+const fakePostBlogNoLike = {
+	title: 'Testing Post',
+	author: 'Test Testington',
+	url: 'https://testtest.example/',
+};
+
+const fakePostBlogNoTitle = {
+	author: 'Test Testington',
+	likes: 42,
+};
+
 beforeEach(async () => {
 	await testBlog.deleteMany({});
 	await testBlog.insertMany(mockBlogs);
@@ -112,24 +130,11 @@ describe('test server - part 4 section B', () => {
 	});
 
 	test('Create new blog', async () => {
-		const fakePostBlog = {
-			title: 'Testing Post',
-			author: 'Test Testington',
-			url: 'https://testtest.example/',
-			likes: 42,
-		};
-
 		const response = await request.post('/api/blogs').send({ ...fakePostBlog });
 		expect(response.body).toEqual(expect.objectContaining(fakePostBlog));
 	});
 
 	test('New blog post without like property would default to 0', async () => {
-		const fakePostBlogNoLike = {
-			title: 'Testing Post',
-			author: 'Test Testington',
-			url: 'https://testtest.example/',
-		};
-
 		const response = await request
 			.post('/api/blogs')
 			.send({ ...fakePostBlogNoLike });
@@ -139,11 +144,6 @@ describe('test server - part 4 section B', () => {
 	});
 
 	test('New blog post without a title & url properties would return 400', async () => {
-		const fakePostBlogNoTitle = {
-			author: 'Test Testington',
-			likes: 42,
-		};
-
 		const response = await request
 			.post('/api/blogs')
 			.send({ ...fakePostBlogNoTitle });
