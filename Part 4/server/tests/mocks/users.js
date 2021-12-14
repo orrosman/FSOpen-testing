@@ -8,3 +8,5 @@ const mockNewUser = {
 	name: 'Test Testy',
 	password: '123456',
 };
+
+module.exports = { mockUsers, mockNewUser };
