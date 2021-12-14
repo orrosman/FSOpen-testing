@@ -137,10 +137,28 @@ describe('test server - part 4 section D', () => {
 		const responseNotUnique = await request
 			.post('/api/users')
 			.send({ ...UserMocks.mockNewUser });
+
 		expect(responseNotUnique.status).toBe(406);
 		expect(responseNotUnique.body).toBe(
 			`User with username: ${UserMocks.mockNewUser.username} already exists`
 		);
+	});
+
+	test('Username must be at least 3 characters long', async () => {
+		const response = await request
+			.post('/api/users')
+			.send({ ...UserMocks.mockShortUsername });
+		expect(responseNotUnique.status).toBe(406);
+		expect(response.body).toBe('Username must be at least 3 characters long');
+	});
+
+	test('Password must be at least 3 characters long', async () => {
+		const response = await request
+			.post('/api/users')
+			.send({ ...UserMocks.mockShortPassword });
+
+		expect(responseNotUnique.status).toBe(406);
+		expect(response.body).toBe('Password must be at least 3 characters long');
 	});
 });
 

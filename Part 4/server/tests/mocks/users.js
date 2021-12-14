@@ -9,4 +9,21 @@ const mockNewUser = {
 	password: '123456',
 };
 
-module.exports = { mockUsers, mockNewUser };
+const mockShortUsername = {
+	username: 'Te',
+	name: 'Test Testy',
+	password: '123456',
+};
+
+const mockShortPassword = {
+	username: 'Tester',
+	name: 'Test Testy',
+	password: '12',
+};
+
+module.exports = {
+	mockUsers,
+	mockNewUser,
+	mockShortUsername,
+	mockShortPassword,
+};
