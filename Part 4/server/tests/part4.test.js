@@ -127,5 +127,6 @@ describe('test server - part 4 section B', () => {
 
 	afterAll(() => {
 		mongoose.connection.close();
+		app.close();
 	});
 });

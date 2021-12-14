@@ -9,8 +9,12 @@ app.use(express.json());
 app.use('/', blogRouter);
 
 const PORT = 3003;
-app.listen(PORT, () => {
+const listener = app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
 });
+
+app.close = () => {
+	listener.close();
+};
 
 module.exports = app;
