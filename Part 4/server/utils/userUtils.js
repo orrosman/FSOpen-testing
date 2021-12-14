@@ -33,4 +33,8 @@ const encryptPassword = async (password) => {
 	}
 };
 
-module.exports = { register };
+const isUsernameExist = async (newUsername) => {
+	return Boolean(await User.findOne({ username: newUsername }));
+};
+
+module.exports = { register, isUsernameExist };
