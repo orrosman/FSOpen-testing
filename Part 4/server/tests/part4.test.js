@@ -124,11 +124,17 @@ describe('test server - part 4 section D', () => {
 	});
 
 	test("Can't create new user with existing username", async () => {
+		//create new user
+		await request.post('/api/users').send({ ...UserMocks.mockNewUser });
+
+		//add the same one again
 		const responseNotUnique = await request
 			.post('/api/users')
 			.send({ ...UserMocks.mockNewUser });
 		expect(responseNotUnique.status).toBe(406);
-		expect(responseNotUnique.body).toBe('Username already exist');
+		expect(responseNotUnique.body).toBe(
+			`User with username: ${UserMocks.mockNewUser.username} already exists`
+		);
 	});
 });
 
