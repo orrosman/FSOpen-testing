@@ -125,6 +125,23 @@ describe('test server - part 4 section B', () => {
 		expect(response.body).toEqual(expect.objectContaining(fakePostBlog));
 	});
 
+	test('New blog post without like property would default to 0', async () => {
+		const fakePostBlogNoLike = {
+			title: 'Testing Post',
+			author: 'Test Testington',
+			url: 'https://testtest.example/',
+		};
+
+		const response = await request
+			.post('/api/blogs')
+			.send({ ...fakePostBlogNoLike });
+		expect(200);
+		console.log({ ...fakePostBlogNoLike, likes: 0 });
+		expect(response.body).toEqual(
+			expect.objectContaining({ ...fakePostBlogNoLike, likes: 0 })
+		);
+	});
+
 	afterAll(() => {
 		mongoose.connection.close();
 		app.close();
