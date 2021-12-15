@@ -38,9 +38,21 @@ const isUsernameExist = async (newUsername) => {
 };
 
 const getAllUsers = async () => {
-	console.log(await User.find({}));
-
 	return await User.find({});
 };
 
-module.exports = { register, isUsernameExist, getAllUsers };
+const checkUsername = (username) => {
+	return username.length >= 3 ? true : false;
+};
+
+const checkPassword = (password) => {
+	return password.length >= 3 ? true : false;
+};
+
+module.exports = {
+	register,
+	isUsernameExist,
+	getAllUsers,
+	checkUsername,
+	checkPassword,
+};

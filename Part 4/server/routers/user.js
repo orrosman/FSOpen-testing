@@ -4,11 +4,12 @@ const {
 	register,
 	isUsernameExist,
 	getAllUsers,
+	checkUsername,
+	checkPassword,
 } = require('../utils/userUtils');
 
 router.post('/', async (request, response) => {
 	let newUser = request.body;
-	const isNewUsernameExist = await isUsernameExist(newUser.username);
 
 	if (
 		!newUser.hasOwnProperty('username') &&
@@ -16,12 +17,23 @@ router.post('/', async (request, response) => {
 		!newUser.hasOwnProperty('password')
 	) {
 		response.status(400).send();
-	} else if (isNewUsernameExist) {
+	} else if (!checkUsername(newUser.username)) {
 		response
 			.status(406)
-			.json(`User with username: ${newUser.username} already exists`);
+			.json('Username and password must be at least 3 characters long');
+	} else if (!checkPassword(newUser.password)) {
+		response
+			.status(406)
+			.json('Username and password must be at least 3 characters long');
 	} else {
-		response.status(201).json(await register(newUser));
+		const isNewUsernameExist = await isUsernameExist(newUser.username);
+		if (isNewUsernameExist) {
+			response
+				.status(406)
+				.json(`User with username: ${newUser.username} already exists`);
+		} else {
+			response.status(201).json(await register(newUser));
+		}
 	}
 });
 
