@@ -148,8 +148,10 @@ describe('test server - part 4 section D', () => {
 		const response = await request
 			.post('/api/users')
 			.send({ ...UserMocks.mockShortUsername });
-		expect(responseNotUnique.status).toBe(406);
-		expect(response.body).toBe('Username must be at least 3 characters long');
+		expect(response.status).toBe(406);
+		expect(response.body).toBe(
+			'Username and password must be at least 3 characters long'
+		);
 	});
 
 	test('Password must be at least 3 characters long', async () => {
@@ -157,8 +159,10 @@ describe('test server - part 4 section D', () => {
 			.post('/api/users')
 			.send({ ...UserMocks.mockShortPassword });
 
-		expect(responseNotUnique.status).toBe(406);
-		expect(response.body).toBe('Password must be at least 3 characters long');
+		expect(response.status).toBe(406);
+		expect(response.body).toBe(
+			'Username and password must be at least 3 characters long'
+		);
 	});
 });
 
