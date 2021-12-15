@@ -49,10 +49,20 @@ const checkPassword = (password) => {
 	return password.length >= 3 ? true : false;
 };
 
+const checkProperties = (user) => {
+	return (
+		user.hasOwnProperty('username') &&
+		user.hasOwnProperty('name') &&
+		user.hasOwnProperty('password') &&
+		user.hasOwnProperty('blogs')
+	);
+};
+
 module.exports = {
 	register,
 	isUsernameExist,
 	getAllUsers,
 	checkUsername,
 	checkPassword,
+	checkProperties,
 };

@@ -14,7 +14,6 @@ router.get('/', async (request, response) => {
 
 router.post('/', async (request, response) => {
 	let newBlog = request.body;
-	console.log(hasProperties(newBlog));
 	if (!hasProperties(newBlog)) {
 		response.status(400).json();
 	} else if (!newBlog.hasOwnProperty('likes')) {

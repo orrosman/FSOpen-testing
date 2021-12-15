@@ -6,17 +6,13 @@ const {
 	getAllUsers,
 	checkUsername,
 	checkPassword,
-	checkUser,
+	checkProperties,
 } = require('../utils/userUtils');
 
 router.post('/', async (request, response) => {
 	let newUser = request.body;
 
-	if (
-		!newUser.hasOwnProperty('username') &&
-		!newUser.hasOwnProperty('name') &&
-		!newUser.hasOwnProperty('password')
-	) {
+	if (!checkProperties(newUser)) {
 		response.status(400).send();
 	} else if (!checkUsername(newUser.username)) {
 		response
