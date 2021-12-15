@@ -59,6 +59,10 @@ const fakePostBlog = {
 const fakePostBlogNoLike = {
 	title: 'Testing Post',
 	author: 'Test Testington',
+	user: {
+		username: 'Test',
+		name: 'Test Testy',
+	},
 	url: 'https://testtest.example/',
 };
 

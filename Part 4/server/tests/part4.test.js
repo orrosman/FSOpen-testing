@@ -68,9 +68,9 @@ describe('test server - part 4 section B', () => {
 	test('Create new blog', async () => {
 		const response = await request
 			.post('/api/blogs')
-			.send({ ...BlogMocks.fakePostBlog });
+			.send({ ...BlogMocks.fakePostBlogUserInfo });
 		expect(response.body).toEqual(
-			expect.objectContaining(BlogMocks.fakePostBlog)
+			expect.objectContaining(BlogMocks.fakePostBlogUserInfo)
 		);
 	});
 
