@@ -5,6 +5,7 @@ const {
 	postNewBlogs,
 	deleteBlog,
 	updateBlog,
+	hasProperties,
 } = require('../utils/blogUtils');
 
 router.get('/', async (request, response) => {
@@ -13,9 +14,9 @@ router.get('/', async (request, response) => {
 
 router.post('/', async (request, response) => {
 	let newBlog = request.body;
-
-	if (!newBlog.hasOwnProperty('title') && !newBlog.hasOwnProperty('url')) {
-		response.status(400).send();
+	console.log(hasProperties(newBlog));
+	if (!hasProperties(newBlog)) {
+		response.status(400).json();
 	} else if (!newBlog.hasOwnProperty('likes')) {
 		newBlog = { ...newBlog, likes: 0 };
 		response.status(201).json(await postNewBlogs(newBlog));

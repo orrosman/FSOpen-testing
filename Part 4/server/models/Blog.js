@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const blogSchema = new mongoose.Schema({
 	title: String,
 	author: String,
+	user: {
+		username: String,
+		name: String,
+	},
 	url: String,
 	likes: Number,
 });

@@ -6,6 +6,7 @@ const {
 	getAllUsers,
 	checkUsername,
 	checkPassword,
+	checkUser,
 } = require('../utils/userUtils');
 
 router.post('/', async (request, response) => {
