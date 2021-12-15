@@ -164,6 +164,24 @@ describe('test server - part 4 section D', () => {
 			'Username and password must be at least 3 characters long'
 		);
 	});
+
+	test("Each note includes information of it's creator", async () => {
+		//add new blog with user info
+		const responseWithInfo = await request
+			.post('/api/blogs')
+			.send({ ...BlogMocks.fakePostBlogUserInfo });
+
+		expect(responseWithInfo.body).toEqual(
+			expect.objectContaining(BlogMocks.fakePostBlogUserInfo)
+		);
+
+		//add new blog without user info
+		const responseWithoutInfo = await request
+			.post('/api/blogs')
+			.send({ ...BlogMocks.fakePostBlog });
+
+		expect(responseWithoutInfo.status).toBe(400);
+	});
 });
 
 afterAll(() => {
