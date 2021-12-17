@@ -19,6 +19,7 @@ const authenticate = (req, res, next) => {
 			});
 		}
 	} catch (err) {
+		console.log(err);
 		res.status(401).send({
 			message: 'Access Token Required',
 		});

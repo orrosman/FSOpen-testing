@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
+import { Notyf } from 'notyf';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Blog from './components/Blog';
 import blogService from './services/blogs';
 import { logout } from './services/auth';
+
+const notyf = new Notyf();
 
 const App = () => {
 	const [blogs, setBlogs] = useState([]);
@@ -24,9 +27,10 @@ const App = () => {
 		const hasLoggedOut = logout();
 
 		if (hasLoggedOut) {
+			notyf.success('Logged Out');
 			navigate('/');
 		} else {
-			alert('Something went wrong, try again later');
+			notyf.error('Something went wrong, try again later');
 		}
 	};
 
@@ -44,6 +48,7 @@ const App = () => {
 
 		const response = await blogService.postNew(blogObj);
 		if (response.status === 201) {
+			notyf.success('Posted!📨');
 			getAllBlogs();
 		} else {
 			alert('Something went wrong, try again later');

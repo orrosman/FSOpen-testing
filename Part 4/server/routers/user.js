@@ -52,10 +52,10 @@ router.post('/login', async (req, res) => {
 			});
 			res.json({ token: token, name: user.name });
 		} else {
-			res.json('Password in invalid');
+			res.status(403).json({ message: 'Password in invalid' });
 		}
 	} else {
-		res.json('User was not found');
+		res.status(403).json({ message: 'User was not found' });
 	}
 });
 

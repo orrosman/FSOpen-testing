@@ -2,7 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { login } from '../services/auth';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Notyf } from 'notyf';
+
+const notyf = new Notyf();
 
 function LoginPage() {
 	let navigate = useNavigate();
@@ -24,9 +26,12 @@ function LoginPage() {
 				'authToken',
 				JSON.stringify(response.data.token)
 			);
+			notyf.success('Logged In');
 			navigate('/blogs', {
 				state: { name: response.data.name },
 			});
+		} else {
+			notyf.error(response.data);
 		}
 	};
 
