@@ -50,7 +50,7 @@ router.post('/login', async (req, res) => {
 				id: user._id,
 				name: user.name,
 			});
-			res.json({ token: token });
+			res.json({ token: token, name: user.name });
 		} else {
 			res.json('Password in invalid');
 		}
