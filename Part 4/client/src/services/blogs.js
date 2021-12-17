@@ -12,4 +12,21 @@ const getAll = async () => {
 	return request.data;
 };
 
-export default { getAll };
+const postNew = async (blogObj) => {
+	const response = await axios.post(
+		baseUrl,
+		{
+			...blogObj,
+		},
+		{
+			headers: {
+				Authorization: `Bearer ${JSON.parse(
+					window.localStorage.getItem('authToken')
+				)}`,
+			},
+		}
+	);
+	return response;
+};
+
+export default { getAll, postNew };
