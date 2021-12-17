@@ -34,7 +34,7 @@ const encryptPassword = async (password) => {
 };
 
 const isUsernameExist = async (newUsername) => {
-	return Boolean(await User.findOne({ username: newUsername }));
+	return await User.findOne({ username: newUsername });
 };
 
 const getAllUsers = async () => {

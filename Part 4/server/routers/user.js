@@ -9,7 +9,9 @@ const {
 	checkProperties,
 } = require('../utils/userUtils');
 
-router.post('/', async (request, response) => {
+const { generateToken, validatePassword } = require('../utils/authUtils');
+
+router.post('/register', async (request, response) => {
 	let newUser = request.body;
 
 	if (!checkProperties(newUser)) {
@@ -31,6 +33,25 @@ router.post('/', async (request, response) => {
 		} else {
 			response.status(201).json(await register(newUser));
 		}
+	}
+});
+
+router.post('/login', async (req, res) => {
+	const { username, password } = req.body;
+	const user = await isUsernameExist(username);
+	if (user) {
+		const isPasswordCorrect = await validatePassword(
+			password,
+			user.passwordHash
+		);
+		if (isPasswordCorrect) {
+			const token = generateToken({ username: username, id: user._id });
+			res.json(token);
+		} else {
+			res.json('Password in invalid');
+		}
+	} else {
+		res.json('User was not found');
 	}
 });
 

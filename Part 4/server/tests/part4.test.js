@@ -120,7 +120,7 @@ describe('test server - part 4 section D', () => {
 
 	test('Create a unique user', async () => {
 		const responseUnique = await request
-			.post('/api/users')
+			.post('/api/users/register')
 			.send({ ...UserMocks.mockNewUserWithInfo });
 
 		expect(responseUnique.status).toBe(201);
@@ -131,11 +131,13 @@ describe('test server - part 4 section D', () => {
 
 	test("Can't create new user with existing username", async () => {
 		//create new user
-		await request.post('/api/users').send({ ...UserMocks.mockNewUserWithInfo });
+		await request
+			.post('/api/users/register')
+			.send({ ...UserMocks.mockNewUserWithInfo });
 
 		//add the same one again
 		const responseNotUnique = await request
-			.post('/api/users')
+			.post('/api/users/register')
 			.send({ ...UserMocks.mockNewUserWithInfo });
 
 		expect(responseNotUnique.status).toBe(406);
@@ -146,7 +148,7 @@ describe('test server - part 4 section D', () => {
 
 	test('Username must be at least 3 characters long', async () => {
 		const response = await request
-			.post('/api/users')
+			.post('/api/users/register')
 			.send({ ...UserMocks.mockShortUsername });
 		expect(response.status).toBe(406);
 		expect(response.body).toBe(
@@ -156,7 +158,7 @@ describe('test server - part 4 section D', () => {
 
 	test('Password must be at least 3 characters long', async () => {
 		const response = await request
-			.post('/api/users')
+			.post('/api/users/register')
 			.send({ ...UserMocks.mockShortPassword });
 
 		expect(response.status).toBe(406);
@@ -168,7 +170,7 @@ describe('test server - part 4 section D', () => {
 	test("Each blog includes information of it's creator", async () => {
 		//add new blog with user info
 		const responseWithInfo = await request
-			.post('/api/blogs')
+			.post('/api/blogs/register')
 			.send({ ...BlogMocks.fakePostBlogUserInfo });
 
 		expect(responseWithInfo.body).toEqual(
@@ -177,7 +179,7 @@ describe('test server - part 4 section D', () => {
 
 		//add new blog without user info
 		const responseWithoutInfo = await request
-			.post('/api/blogs')
+			.post('/api/blogs/register')
 			.send({ ...BlogMocks.fakePostBlog });
 
 		expect(responseWithoutInfo.status).toBe(400);
@@ -186,7 +188,7 @@ describe('test server - part 4 section D', () => {
 	test("Each user includes information of it's blogs", async () => {
 		//add new user with blogs info
 		const responseWithInfo = await request
-			.post('/api/users')
+			.post('/api/users/register')
 			.send({ ...UserMocks.mockNewUserWithInfo });
 
 		expect(responseWithInfo.body).toBe(
@@ -195,7 +197,7 @@ describe('test server - part 4 section D', () => {
 
 		//add new blog without user info
 		const responseWithoutInfo = await request
-			.post('/api/users')
+			.post('/api/users/register')
 			.send({ ...UserMocks.mockNewUser });
 
 		expect(responseWithoutInfo.status).toBe(400);
