@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
 mongoose.connect(process.env.MONGO_URL);

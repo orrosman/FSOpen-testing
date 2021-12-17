@@ -7,9 +7,12 @@ const authenticate = (req, res, next) => {
 		const isValid = jwt.verify(token, process.env.JWT_SECRET);
 
 		if (isValid) {
-			res.status(200).send({
-				valid: true,
-			});
+			req.user = {
+				username: isValid.username,
+				id: isValid.id,
+				name: isValid.name,
+			};
+			next();
 		} else {
 			res.status(403).send({
 				message: 'Invalid Access Token',

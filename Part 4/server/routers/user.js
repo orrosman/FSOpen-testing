@@ -45,7 +45,11 @@ router.post('/login', async (req, res) => {
 			user.passwordHash
 		);
 		if (isPasswordCorrect) {
-			const token = generateToken({ username: username, id: user._id });
+			const token = generateToken({
+				username: username,
+				id: user._id,
+				name: user.name,
+			});
 			res.json(token);
 		} else {
 			res.json('Password in invalid');
