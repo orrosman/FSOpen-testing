@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
-import { login } from '../services/login';
+import { login } from '../services/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function LoginPage() {
