@@ -36,10 +36,25 @@ const hasProperties = (blog) => {
 	return result;
 };
 
+const isBlogCreator = async (blogId, userId) => {
+	try {
+		const blog = await Blog.findById(blogId);
+
+		if (blog.user.id === userId) {
+			return true;
+		} else {
+			return false;
+		}
+	} catch {
+		return null;
+	}
+};
+
 module.exports = {
 	getAllBlogs,
 	postNewBlogs,
 	deleteBlog,
 	updateBlog,
 	hasProperties,
+	isBlogCreator,
 };

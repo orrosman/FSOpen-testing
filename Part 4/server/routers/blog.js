@@ -6,6 +6,7 @@ const {
 	deleteBlog,
 	updateBlog,
 	hasProperties,
+	isBlogCreator,
 } = require('../utils/blogUtils');
 
 router.get('/', async (request, response) => {
@@ -26,9 +27,17 @@ router.post('/', async (request, response) => {
 });
 
 router.delete('/', async (request, response) => {
-	const { id } = request.body;
-	const res = await deleteBlog(id);
-	response.json(res);
+	const { id: blogId } = request.body;
+	const { id: userId } = request.user;
+
+	const isCreator = await isBlogCreator(blogId, userId);
+
+	if (isCreator) {
+		const res = await deleteBlog(blogId);
+		response.json(res);
+	} else {
+		response.json("You can't delete a blog that isn't yours");
+	}
 });
 
 router.patch('/', async (request, response) => {
