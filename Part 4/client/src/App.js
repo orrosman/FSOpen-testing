@@ -113,9 +113,11 @@ const App = () => {
 			</Modal>
 
 			<Accordion flush>
-				{blogs.map((blog, eventKey) => (
-					<Blog key={blog._id} eventKey={eventKey} blog={blog} />
-				))}
+				{blogs
+					.sort((firstBlog, secondBlog) => secondBlog.likes - firstBlog.likes)
+					.map((blog, eventKey) => (
+						<Blog key={blog._id} eventKey={eventKey} blog={blog} />
+					))}
 			</Accordion>
 		</div>
 	);
