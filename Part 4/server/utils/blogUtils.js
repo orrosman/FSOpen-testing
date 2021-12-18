@@ -49,6 +49,17 @@ const isBlogCreator = async (blogId, userId) => {
 		return null;
 	}
 };
+const likeBlog = async (blogId) => {
+	try {
+		return await Blog.findByIdAndUpdate(
+			blogId,
+			{ $inc: { likes: 1 } },
+			{ returnDocument: 'after' }
+		);
+	} catch {
+		return null;
+	}
+};
 
 module.exports = {
 	getAllBlogs,
@@ -57,4 +68,5 @@ module.exports = {
 	updateBlog,
 	hasProperties,
 	isBlogCreator,
+	likeBlog,
 };

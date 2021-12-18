@@ -1,4 +1,5 @@
 const express = require('express');
+const { findByIdAndUpdate } = require('../models/User');
 const router = express.Router();
 const {
 	getAllBlogs,
@@ -7,6 +8,7 @@ const {
 	updateBlog,
 	hasProperties,
 	isBlogCreator,
+	likeBlog,
 } = require('../utils/blogUtils');
 
 router.get('/', async (request, response) => {
@@ -43,6 +45,12 @@ router.delete('/', async (request, response) => {
 router.patch('/', async (request, response) => {
 	const { updates, id } = request.body;
 	const res = await updateBlog(id, updates);
+	response.json(res);
+});
+
+router.put('/:id', async (request, response) => {
+	const { id } = request.params;
+	const res = await likeBlog(id);
 	response.json(res);
 });
 
