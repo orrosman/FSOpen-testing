@@ -1,8 +1,25 @@
-import React from 'react'
-const Blog = ({blog}) => (
-  <div>
-    {blog.title} {blog.author}
-  </div>  
-)
+import React from 'react';
+import { Accordion } from 'react-bootstrap';
 
-export default Blog
+const Blog = ({ blog, eventKey }) => (
+	// <Accordion flush>
+	<Accordion.Item eventKey={eventKey}>
+		<Accordion.Header>
+			{blog.title} | {blog.author}
+		</Accordion.Header>
+		<Accordion.Body>
+			{console.log(blog)}
+			<p>
+				URL:
+				<a href={blog.url} target="_blank">
+					{blog.url}
+				</a>
+			</p>
+			<p>Likes: {blog.likes}</p>
+			<p>User: {blog.user.username}</p>
+		</Accordion.Body>
+	</Accordion.Item>
+	// </Accordion>
+);
+
+export default Blog;

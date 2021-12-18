@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, Form, Accordion } from 'react-bootstrap';
 import { Notyf } from 'notyf';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Blog from './components/Blog';
@@ -111,9 +111,12 @@ const App = () => {
 					</Form>
 				</Modal.Body>
 			</Modal>
-			{blogs.map((blog) => (
-				<Blog key={blog._id} blog={blog} />
-			))}
+
+			<Accordion flush>
+				{blogs.map((blog, eventKey) => (
+					<Blog key={blog._id} eventKey={eventKey} blog={blog} />
+				))}
+			</Accordion>
 		</div>
 	);
 };
