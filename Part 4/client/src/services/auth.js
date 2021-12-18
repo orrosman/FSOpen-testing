@@ -10,6 +10,7 @@ const login = async (credentials) => {
 const logout = () => {
 	window.localStorage.removeItem('authToken');
 	window.localStorage.removeItem('name');
+	window.localStorage.removeItem('username');
 	if (
 		window.localStorage.hasOwnProperty('authToken') ||
 		window.localStorage.hasOwnProperty('name') ||

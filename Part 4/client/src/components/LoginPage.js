@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import { login } from '../services/auth';
 import { Notyf } from 'notyf';
+import PropTypes from 'prop-types';
 
 const notyf = new Notyf();
 
@@ -18,6 +19,11 @@ function LoginPage() {
 		const credentials = {
 			username: formDataObj.username,
 			password: formDataObj.password,
+		};
+
+		credentials.propTypes = {
+			username: PropTypes.string.isRequired,
+			password: PropTypes.string.isRequired,
 		};
 		const response = await login(credentials);
 
