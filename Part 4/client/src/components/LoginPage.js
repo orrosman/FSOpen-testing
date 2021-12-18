@@ -26,6 +26,8 @@ function LoginPage() {
 				'authToken',
 				JSON.stringify(response.data.token)
 			);
+			window.localStorage.setItem('name', JSON.stringify(response.data.name));
+			window.localStorage.setItem('username', formDataObj.username);
 			notyf.success('Logged In');
 			navigate('/blogs', {
 				state: { name: response.data.name },

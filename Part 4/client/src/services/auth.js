@@ -9,7 +9,12 @@ const login = async (credentials) => {
 
 const logout = () => {
 	window.localStorage.removeItem('authToken');
-	if (window.localStorage.hasOwnProperty('authToken')) {
+	window.localStorage.removeItem('name');
+	if (
+		window.localStorage.hasOwnProperty('authToken') ||
+		window.localStorage.hasOwnProperty('name') ||
+		window.localStorage.hasOwnProperty('username')
+	) {
 		return false;
 	} else {
 		return true;

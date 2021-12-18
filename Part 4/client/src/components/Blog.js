@@ -22,7 +22,9 @@ const Blog = ({ blog, eventKey, updateBlogsList }) => {
 					Likes: {likes} <LikeButton setLikes={setLikes} blogId={blog._id} />
 				</p>
 				<p>User: {blog.user.username}</p>
-				<DeleteButton blogId={blog._id} updateBlogsList={updateBlogsList} />
+				{window.localStorage.getItem('username') === blog.user.username ? (
+					<DeleteButton blogId={blog._id} updateBlogsList={updateBlogsList} />
+				) : null}
 			</Accordion.Body>
 		</Accordion.Item>
 	);
