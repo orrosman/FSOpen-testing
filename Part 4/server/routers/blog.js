@@ -28,8 +28,8 @@ router.post('/', async (request, response) => {
 	}
 });
 
-router.delete('/', async (request, response) => {
-	const { id: blogId } = request.body;
+router.delete('/:id', async (request, response) => {
+	const { id: blogId } = request.params;
 	const { id: userId } = request.user;
 
 	const isCreator = await isBlogCreator(blogId, userId);

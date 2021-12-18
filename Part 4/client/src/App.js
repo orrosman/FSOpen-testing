@@ -116,7 +116,12 @@ const App = () => {
 				{blogs
 					.sort((firstBlog, secondBlog) => secondBlog.likes - firstBlog.likes)
 					.map((blog, eventKey) => (
-						<Blog key={blog._id} eventKey={eventKey} blog={blog} />
+						<Blog
+							key={blog._id}
+							eventKey={eventKey}
+							blog={blog}
+							updateBlogsList={setBlogs}
+						/>
 					))}
 			</Accordion>
 		</div>

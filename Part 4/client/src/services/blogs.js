@@ -26,4 +26,13 @@ const likeBlog = async (blogId) => {
 	}
 };
 
-export default { getAll, postNew, likeBlog };
+const deleteBlog = async (blogId) => {
+	const response = await axios.delete(`${baseUrl}/${blogId}`);
+	if (response.status === 200) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+export default { getAll, postNew, likeBlog, deleteBlog };
